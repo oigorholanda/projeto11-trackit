@@ -18,7 +18,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
+	font-family: 'Lexend Deca', sans-serif;
 	vertical-align: baseline;
 }
 
@@ -44,9 +44,10 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/* * {
+* {
+	font-family: 'Lexend Deca', sans-serif;
     box-sizing: border-box;
-} */
+}
 `
 
 export default GlobalStyle
