@@ -48,6 +48,17 @@ table {
 	font-family: 'Lexend Deca', sans-serif;
     box-sizing: border-box;
 }
+input {
+    width: 100%;
+    height: 45px;
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    &::placeholder {
+      font-size: 16px;
+      color: #dbdbdb;
+    }
+}
 `
 
 export default GlobalStyle
