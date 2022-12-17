@@ -7,7 +7,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   function logar() {
-    navigate("/habitos");
+    navigate("/hoje");
   }
 
   return (

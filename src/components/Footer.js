@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ligthBlue } from "../constants/colors";
 
 export default function Footer() {
   return (
     <ContainerFooter>
-      <div>Habitos</div>
-      <Circle>Hoje</Circle>
-      <div>Historico</div>
+      <Link to="/habitos">Habitos</Link>
+      <Circle to="/hoje">Hoje</Circle>
+      <Link to="/historico">Historico</Link>
     </ContainerFooter>
   );
 }
@@ -26,7 +27,7 @@ const ContainerFooter = styled.div`
   z-index: 2;
 `;
 
-const Circle = styled.div`
+const Circle = styled(Link)`
   width: 91px;
   height: 91px;
   border-radius: 100px;

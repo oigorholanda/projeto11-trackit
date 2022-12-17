@@ -7,7 +7,7 @@ export default function CreateLogin() {
   const navigate = useNavigate();
 
   function cadastrar() {
-    navigate("/habitos");
+    navigate("/hoje");
   }
 
   return (

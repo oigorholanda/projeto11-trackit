@@ -5,7 +5,6 @@ import Header from "./Header";
 import NewHabit from "./NewHabit";
 
 export default function Main() {
-
   return (
     <>
       <Header />
@@ -16,8 +15,6 @@ export default function Main() {
         </HabitsTitle>
 
         <NewHabit />
-        
-        
 
         <p>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
@@ -32,13 +29,13 @@ export default function Main() {
 
 const ContainerBody = styled.div`
   width: 100vw;
-  min-height: 527px;
+  min-height: 560px;
   margin: 70px auto;
   padding: 20px;
-  padding-bottom: 40px;
+
   background-color: ${backgroundColor};
   p {
-    margin-top: 20px;
+    margin: 30px 0px;
     font-size: 17.976px;
     line-height: 22px;
     color: #666666;
@@ -62,7 +59,3 @@ const HabitsTitle = styled.div`
     border-radius: 4.63636px;
   }
 `;
-
-
-
-

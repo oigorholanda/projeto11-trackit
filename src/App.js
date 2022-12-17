@@ -2,7 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import CreateLogin from "./components/CreateLogin";
 import Login from "./components/Login";
-import Main from "./components/Main";
+import Habits from "./components/Habits";
+import Today from "./components/Today";
+import Historic from "./components/Historic";
 
 function App() {
   return (
@@ -11,9 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<CreateLogin />} />
-          <Route path="/habitos" element={<Main />} />
-          <Route path="/hoje" />
-          <Route path="/historico" />
+          <Route path="/habitos" element={<Habits />} />
+          <Route path="/hoje" element={<Today />}/>
+          <Route path="/historico" element={<Historic />} />
         </Routes>
       </BrowserRouter>
     </ContainerApp>

@@ -59,6 +59,10 @@ input {
       color: #dbdbdb;
     }
 }
+a {
+	text-decoration: none;
+	color: inherit;
+}
 `
 
 export default GlobalStyle
