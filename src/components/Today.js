@@ -18,9 +18,9 @@ export default function Today() {
     <>
       <Header />
       <ContainerBody>
-        <HabitsTitle>
+        <HabitsTitle concluidos={concluidos}>
           <h3>Segunda, 17/05 </h3>
-          <p concluidos={concluidos} onClick={() => concluir(true)}>
+          <p  onClick={() => concluir()}>
             {!concluidos
               ? "Nenhum hábito concluído ainda"
               : "100% dos hábitos concluidos"}

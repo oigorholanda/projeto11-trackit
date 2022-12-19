@@ -1,12 +1,31 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ligthBlue } from "../constants/colors";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css';
+import { useState } from "react";
 
 export default function Footer() {
+const [percentage, setpercentage] = useState(66)
+
   return (
     <ContainerFooter>
       <Link to="/habitos">Habitos</Link>
-      <Circle to="/hoje">Hoje</Circle>
+      <Circle to="/hoje">
+        <CircularProgressbar         
+        value={percentage}
+        text="Hoje"
+        background
+        backgroundPadding={6}
+        styles={buildStyles({
+          backgroundColor: `${ligthBlue}`,
+          textColor: "#fff",
+          textSize: "20px",
+          pathColor: "#fff",
+          trailColor: "transparent",
+          strokeLinecap: "round"
+        })} />
+      </Circle>
       <Link to="/historico">Histórico</Link>
     </ContainerFooter>
   );
@@ -32,9 +51,7 @@ const Circle = styled(Link)`
   height: 91px;
   border-radius: 100px;
   color: white;
-  background-color: ${ligthBlue};
+  /* background-color: ${ligthBlue}; */
   margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
 `;

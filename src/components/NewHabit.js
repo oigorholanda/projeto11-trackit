@@ -15,28 +15,28 @@ export default function NewHabit({setplus}) {
     <NewHabitContainer>
         Novo Hábito
       <input type="text" placeholder="nome do habito" />
-      <DivDias>
-        <button selected={selected} onClick={() => selecDay()}>
+      <DivDias selected={selected}>
+        <div onClick={() => selecDay()}>
           D
-        </button>
-        <button >
+        </div>
+        <div onClick={() => selecDay()}>
           S
-        </button>
-        <button >
+        </div>
+        <div onClick={() => selecDay()}>
           T
-        </button>
-        <button >
+        </div>
+        <div onClick={() => selecDay()}>
           Q
-        </button>
-        <button >
+        </div>
+        <div onClick={() => selecDay()}>
           Q
-        </button>
-        <button >
+        </div>
+        <div onClick={() => selecDay()}>
           S
-        </button>
-        <button >
+        </div>
+        <div onClick={() => selecDay()}>
           S
-        </button>
+        </div>
       </DivDias>
       <DivButtons>
         <button className="cancelar" onClick={() => setplus(false)}>Cancelar</button>
@@ -65,11 +65,11 @@ const DivDias = styled.div`
   align-items: center;
   margin-top: 0px;
   gap: 2px;
-  button {
+  div {
     width: 30px;
     height: 30px;
-    color: ${props => props.selected ? "red" : "#DBDBDB"};
-    background: ${props => props.selected ? "blue" : "#ffffff"};
+    color: ${props => props.selected ? "#ffffff" : "#DBDBDB"};
+    background: ${props => props.selected ? "#CFCFCF" : "#ffffff"};
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     text-align: center;
