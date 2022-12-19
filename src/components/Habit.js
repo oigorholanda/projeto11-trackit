@@ -10,7 +10,7 @@ export default function Habit() {
           <p>Sequência atual: 3 dias</p>
           <p>Seu recorde: 5 dias</p>
         </div>
-        <section>✅</section>
+        <input type="checkbox" placeholder="✅"></input>
       </HabitContainer>
     </>
   );
@@ -33,9 +33,14 @@ const HabitContainer = styled.div`
   p {
 font-size: 13px;
   }
-  section {
-    width: 69px;
-    height: 69px;
-    font-size: 59px;
+  input {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    background-color: green;
+    &:hover{
+        cursor: pointer;
+        background-color: #ccc;
+    }
   }
 `;

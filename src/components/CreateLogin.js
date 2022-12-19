@@ -1,43 +1,98 @@
+import axios from "axios";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { ligthBlue } from "../constants/colors";
+import { base_url } from "../constants/urls";
 
 export default function CreateLogin() {
-  const navigate = useNavigate()
-  const [loading, setloading] = useState(false)
+  const navigate = useNavigate();
+  const [loading, setloading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [nome, setNome] = useState("");
+  const [foto, setFoto] = useState("");
 
-  function cadastrar() {
-    setloading(true)
+  function cadastrar(event) {
+    event.preventDefault();
+    setloading(true);
+
+    {
+      axios
+        .post(`${base_url}/auth/sign-up`, {
+          email: email,
+          name: nome,
+          image: foto,
+          password: senha,
+        })
+        .then((res) => {
+          console.log(res.data)
+          navigate("/")
+        })
+        .catch((err) => {
+          alert(`Erro no formulário. Por favor verifique os dados e tente novamente.`)
+          console.log(err.data)
+        });
+    }
+
     setTimeout(() => {
-      navigate("/")
+      navigate("/");
     }, 1000);
-
   }
 
   return (
     <>
-      <Form>
+      <Form onSubmit={cadastrar}>
         <img src={logo} alt="logo" />
-        <input id="login" type="email" placeholder="Email" required />
-        <input id="password" type="password" placeholder="Senha" required />
-        <input id="name" type="text" placeholder="Nome" required />
-        <input id="url" type="url" placeholder="Foto" />
+        <input
+          id="login"
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="Senha"
+          onChange={(e) => setSenha(e.target.value)}
+          value={senha}
+          required
+        />
+        <input
+          id="name"
+          type="text"
+          placeholder="Nome"
+          onChange={(e) => setNome(e.target.value)}
+          value={nome}
+          required
+        />
+        <input
+          id="url"
+          type="url"
+          placeholder="Foto"
+          onChange={(e) => setFoto(e.target.value)}
+          value={foto}
+        />
 
-        <button type="submit" onClick={cadastrar}>
-        {!loading ? "Cadastrar" : 
-        <ThreeDots 
-        height="80" 
-        width="80" 
-        radius="9"
-        color="white" 
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{marginTop:-15, marginLeft: 100}}
-        wrapperClassName=""
-        visible={true}
-        />}
+        <button type="submit">
+          {!loading ? (
+            "Cadastrar"
+          ) : (
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{ marginTop: -15, marginLeft: 100 }}
+              wrapperClassName=""
+              visible={true}
+            />
+          )}
         </button>
 
         <Link to="/">

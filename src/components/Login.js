@@ -3,25 +3,47 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { ligthBlue } from "../constants/colors";
 import { ThreeDots } from "react-loader-spinner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { base_url } from "../constants/urls";
 
 
 export default function Login() {
   const navigate = useNavigate();
   const [loading, setloading] = useState(false)
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   function logar() {
     setloading(true)
-    setTimeout(() => {
-      navigate("/hoje")
-    }, 1000); ;
+
+    {
+      axios
+        .post(`${base_url}/auth/login`, {
+          email: email,
+          password: senha,
+        })
+        .then((res) => {
+          console.log(res.data)
+          navigate("/hoje")
+        })
+        .catch((err) => {
+          console.log(err.data)
+        });
+    }
+
+
+    // setTimeout(() => {
+    //   navigate("/hoje")
+    // }, 1000); ;
   }
 
   return (
     <>
-      <Form>
+      <Form onSubmit={logar}>
         <img src={logo} alt="logo" />
-        <input id="login" type="email" placeholder="Email" required />
+        <input id="login" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}
+          value={email} required />
         <input id="password" type="password" placeholder="Senha" required />
 
         <button type="submit" onClick={logar}>
