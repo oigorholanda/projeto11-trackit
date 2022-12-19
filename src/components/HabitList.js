@@ -1,21 +1,29 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { backgroundColor, ligthBlue } from "../constants/colors";
+import { backgroundColor, darkBlue, ligthBlue } from "../constants/colors";
 import Footer from "./Footer";
 import Header from "./Header";
 import NewHabit from "./NewHabit";
 
 export default function Main() {
+  const [plus, setplus] = useState(false)
+
+  function CreateHabit(){
+    setplus(true);
+    console.log("Funcional");
+  }
+
   return (
     <>
       <Header />
       <ContainerBody>
         <HabitsTitle>
           <h3>Meus Hábitos</h3>
-          <div>+</div>
+          <div onClick={CreateHabit}>+</div>
         </HabitsTitle>
 
-        <NewHabit />
-
+        {plus && <NewHabit setplus={setplus} />}
+          {/* map do Myhabits */}
         <p>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
@@ -32,7 +40,6 @@ const ContainerBody = styled.div`
   min-height: 560px;
   margin: 70px auto;
   padding: 20px;
-
   background-color: ${backgroundColor};
   p {
     margin: 30px 0px;
@@ -46,7 +53,7 @@ const HabitsTitle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  color: ${ligthBlue};
+  color: ${darkBlue};
   font-size: 23px;
   margin-bottom: 20px;
   div {

@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import CreateLogin from "./components/CreateLogin";
 import Login from "./components/Login";
-import Habits from "./components/Habits";
+import HabitList from "./components/HabitList";
 import Today from "./components/Today";
 import Historic from "./components/Historic";
 
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/cadastro" element={<CreateLogin />} />
-          <Route path="/habitos" element={<Habits />} />
+          <Route path="/habitos" element={<HabitList />} />
           <Route path="/hoje" element={<Today />}/>
           <Route path="/historico" element={<Historic />} />
         </Routes>

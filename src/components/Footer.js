@@ -7,7 +7,7 @@ export default function Footer() {
     <ContainerFooter>
       <Link to="/habitos">Habitos</Link>
       <Circle to="/hoje">Hoje</Circle>
-      <Link to="/historico">Historico</Link>
+      <Link to="/historico">Histórico</Link>
     </ContainerFooter>
   );
 }
@@ -23,7 +23,7 @@ const ContainerFooter = styled.div`
   align-items: center;
   background-color: white;
   color: ${ligthBlue};
-  font-size: 18px;
+  font-size: 19px;
   z-index: 2;
 `;
 

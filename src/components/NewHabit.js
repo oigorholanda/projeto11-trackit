@@ -1,57 +1,60 @@
 import { useState } from "react";
+
 import styled from "styled-components";
 import { ligthBlue } from "../constants/colors";
 
-export default function NewHabit() {
-  const [isSelected, setisSelected] = useState(false)
+export default function NewHabit({setplus}) {
+    const [selected, setSelected] = useState(false)
 
-  function selecionaDia() {
-    setisSelected(true)
-    console.log(isSelected);
-  }
+    function selecDay() {
+        setSelected(true)
+        console.log(selected);
+    }
 
   return (
     <NewHabitContainer>
+        Novo Hábito
       <input type="text" placeholder="nome do habito" />
       <DivDias>
-        <div selected={isSelected} onClick={selecionaDia}>
+        <button selected={selected} onClick={() => selecDay()}>
           D
-        </div>
-        <div selected={isSelected} onClick={selecionaDia}>
+        </button>
+        <button >
           S
-        </div>
-        <div selected={isSelected} onClick={selecionaDia}>
+        </button>
+        <button >
           T
-        </div>
-        <div selected={isSelected} onClick={selecionaDia}>
+        </button>
+        <button >
           Q
-        </div>
-        <div selected={isSelected} onClick={selecionaDia}>
+        </button>
+        <button >
           Q
-        </div>
-        <div selected={isSelected} onClick={selecionaDia}>
+        </button>
+        <button >
           S
-        </div>
-        <div selected={isSelected} onClick={selecionaDia}>
+        </button>
+        <button >
           S
-        </div>
+        </button>
       </DivDias>
       <DivButtons>
-        <button className="cancelar">Cancelar</button>
-        <button>Salvar </button>
+        <button className="cancelar" onClick={() => setplus(false)}>Cancelar</button>
+        <button type="submit">Salvar </button>
+        {/* Colocar o spinner de carregando no botão */}
       </DivButtons>
     </NewHabitContainer>
   );
 }
 
-const NewHabitContainer = styled.div`
+const NewHabitContainer = styled.form`
   width: 89vw;
   height: 180px;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 18px;
+  padding: 15px;
   border-radius: 5px;
   margin-bottom: 15px;
 `;
@@ -60,12 +63,13 @@ const DivDias = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: -15px;
-  div {
+  margin-top: 0px;
+  gap: 2px;
+  button {
     width: 30px;
     height: 30px;
-    color: ${(props) => (props.selected ? "red" : "#dbdbdb")};
-    background: ${(props) => (props.selected ? "#dbdbdb" : "#ffffff")};
+    color: ${props => props.selected ? "red" : "#DBDBDB"};
+    background: ${props => props.selected ? "blue" : "#ffffff"};
     border: 1px solid #d5d5d5;
     border-radius: 5px;
     text-align: center;

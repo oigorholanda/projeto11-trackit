@@ -1,13 +1,20 @@
+import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { ligthBlue } from "../constants/colors";
 
 export default function CreateLogin() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [loading, setloading] = useState(false)
 
   function cadastrar() {
-    navigate("/hoje");
+    setloading(true)
+    setTimeout(() => {
+      navigate("/")
+    }, 1000);
+
   }
 
   return (
@@ -20,7 +27,17 @@ export default function CreateLogin() {
         <input id="url" type="url" placeholder="Foto" />
 
         <button type="submit" onClick={cadastrar}>
-          Cadastrar
+        {!loading ? "Cadastrar" : 
+        <ThreeDots 
+        height="80" 
+        width="80" 
+        radius="9"
+        color="white" 
+        ariaLabel="three-dots-loading"
+        wrapperStyle={{marginTop:-15, marginLeft: 100}}
+        wrapperClassName=""
+        visible={true}
+        />}
         </button>
 
         <Link to="/">
