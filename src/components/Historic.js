@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 export default function Historic() {
-  const {token, setToken, mamaco} = useContext(AuthContext)
+
 
   return (
     <>
@@ -14,7 +14,6 @@ export default function Historic() {
       <ContainerBody>
       <h1>Histórico</h1>
       <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
-      <p>{mamaco[0]}, {mamaco[1]}, {token}, {setToken("ola")}</p>
       </ContainerBody>
       
       <Footer/>

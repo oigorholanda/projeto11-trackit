@@ -3,19 +3,23 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { ligthBlue } from "../constants/colors";
 import { ThreeDots } from "react-loader-spinner";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { base_url } from "../constants/urls";
-
+import UserContext from "../contexts/UserContext";
+import AuthContext from "../contexts/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [loading, setloading] = useState(false)
+  const [loading, setloading] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const {setUser} = useContext(UserContext)
+  const {setToken} = useContext(AuthContext)
 
-  function logar() {
-    setloading(true)
+  function logar(event) {
+    event.preventDefault();
+    setloading(true);
 
     {
       axios
@@ -24,40 +28,57 @@ export default function Login() {
           password: senha,
         })
         .then((res) => {
-          console.log(res.data)
-          navigate("/hoje")
+          console.log(res.data);
+          setUser(res.data)
+          setToken(res.data.token);
+          navigate("/hoje");
         })
         .catch((err) => {
-          console.log(err.data)
+          console.log(err.response);
+          alert(err.response.data.message)
+          setloading(false)
         });
     }
-
-
-    // setTimeout(() => {
-    //   navigate("/hoje")
-    // }, 1000); ;
   }
 
   return (
     <>
       <Form onSubmit={logar}>
         <img src={logo} alt="logo" />
-        <input id="login" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)}
-          value={email} required />
-        <input id="password" type="password" placeholder="Senha" required />
+        <input
+          id="login"
+          type="email"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          disabled={loading}
+          required
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="Senha"
+          onChange={(e) => setSenha(e.target.value)}
+          value={senha}
+          disabled={loading}
+          required
+        />
 
-        <button type="submit" onClick={logar}>
-          {!loading ? "Entrar" : 
-        <ThreeDots 
-        height="80" 
-        width="80" 
-        radius="9"
-        color="white" 
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{marginTop:-15, marginLeft: 100}}
-        wrapperClassName=""
-        visible={true}
-        />}
+        <button type="submit" disabled={loading} >
+          {!loading ? (
+            "Entrar"
+          ) : (
+            <ThreeDots
+              height="80"
+              width="80"
+              radius="9"
+              color="white"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{ marginTop: -15, marginLeft: 100 }}
+              wrapperClassName=""
+              visible={true}
+            />
+          )}
         </button>
 
         <Link to="/cadastro">

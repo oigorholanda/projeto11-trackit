@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { backgroundColor, darkBlue, ligthBlue } from "../constants/colors";
+import { backgroundColor, darkBlue } from "../constants/colors";
 import Footer from "./Footer";
 import Habit from "./Habit";
 import Header from "./Header";
@@ -11,7 +10,6 @@ export default function Today() {
 
   function concluir(){
     setconcluidos(true)
-    console.log(concluidos);
   }
 
   return (

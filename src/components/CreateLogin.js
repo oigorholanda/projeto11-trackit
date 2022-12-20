@@ -1,9 +1,9 @@
 import axios from "axios";
+import styled from "styled-components";
+import logo from "../assets/logo.png";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import logo from "../assets/logo.png";
 import { ligthBlue } from "../constants/colors";
 import { base_url } from "../constants/urls";
 
@@ -29,17 +29,15 @@ export default function CreateLogin() {
         })
         .then((res) => {
           console.log(res.data)
+          alert("Cadastro efetuado com sucesso! Realize o Login")
           navigate("/")
         })
         .catch((err) => {
-          alert(`Erro no formulário. Por favor verifique os dados e tente novamente.`)
-          console.log(err.data)
+          alert(err.response.data.message)
+          console.log(err.response)
+          setloading(false)
         });
     }
-
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
   }
 
   return (
@@ -52,6 +50,7 @@ export default function CreateLogin() {
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
+          disabled={loading}
           required
         />
         <input
@@ -60,6 +59,7 @@ export default function CreateLogin() {
           placeholder="Senha"
           onChange={(e) => setSenha(e.target.value)}
           value={senha}
+          disabled={loading}
           required
         />
         <input
@@ -68,6 +68,7 @@ export default function CreateLogin() {
           placeholder="Nome"
           onChange={(e) => setNome(e.target.value)}
           value={nome}
+          disabled={loading}
           required
         />
         <input
@@ -76,9 +77,11 @@ export default function CreateLogin() {
           placeholder="Foto"
           onChange={(e) => setFoto(e.target.value)}
           value={foto}
+          disabled={loading}
+          required
         />
 
-        <button type="submit">
+        <button type="submit" disabled={loading}>
           {!loading ? (
             "Cadastrar"
           ) : (

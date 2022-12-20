@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { ligthBlue } from "../constants/colors";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
-import { useState } from "react";
+import { useContext, useState } from "react";
+import PercentageContext from "../contexts/PercentageContext";
 
 export default function Footer() {
-const [percentage, setpercentage] = useState(66)
+  const {percentage} = useContext(PercentageContext)
 
   return (
     <ContainerFooter>
@@ -35,7 +36,7 @@ const ContainerFooter = styled.div`
   width: 100vw;
   height: 70px;
   position: fixed;
-  bottom: 0;
+  bottom: 0%;
   left: 0;
   display: flex;
   justify-content: space-evenly;

@@ -1,16 +1,42 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { backgroundColor, darkBlue, ligthBlue } from "../constants/colors";
+import { base_url } from "../constants/urls";
+import AuthContext from "../contexts/AuthContext";
+import UserContext from "../contexts/UserContext";
 import Footer from "./Footer";
 import Header from "./Header";
 import NewHabit from "./NewHabit";
 
-export default function Main() {
-  const [plus, setplus] = useState(false)
+export default function HabitList() {
+  const [plus, setPlus] = useState(false);
+  const { user } = useContext(UserContext);
+  const { token } = useContext(AuthContext);
+  const [habits, setHabits] = useState([]);
 
-  function CreateHabit(){
-    setplus(true);
-    console.log("Funcional");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .get(`${base_url}/habits`, config)
+      .then((res) => {
+        console.log("Chegaram os dados")
+        console.log(res.data)
+        setHabits(res.data)
+      })
+      .catch((err) => {
+        console.log("Erro")
+        console.log(err.response)
+      })
+  }, []);
+
+  function newHabit() {
+    setPlus(true);
   }
 
   return (
@@ -19,14 +45,14 @@ export default function Main() {
       <ContainerBody>
         <HabitsTitle>
           <h3>Meus Hábitos</h3>
-          <div onClick={CreateHabit}>+</div>
+          <div onClick={newHabit}>+</div>
         </HabitsTitle>
 
-        {plus && <NewHabit setplus={setplus} />}
-          {/* map do Myhabits */}
+        {plus && <NewHabit plus={plus} setPlus={setPlus} />}
+        {/* map do Myhabits */}
         <p>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-          começar a trackear!
+          {user.name ? `${user.name}, v` : "V"}ocê não tem nenhum hábito
+          cadastrado ainda. Adicione um hábito para começar a trackear!
         </p>
       </ContainerBody>
 
