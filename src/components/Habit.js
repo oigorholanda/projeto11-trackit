@@ -1,7 +1,12 @@
 import styled from "styled-components";
 import { textColor } from "../constants/colors";
+import { useState } from "react";
+
+import {BsFillCheckSquareFill} from 'react-icons/bs'
 
 export default function Habit() {
+    const [checked, setcheked] = useState(false)
+
   return (
     <>
       <HabitContainer>
@@ -10,7 +15,8 @@ export default function Habit() {
           <p>Sequência atual: 3 dias</p>
           <p>Seu recorde: 5 dias</p>
         </div>
-        <input type="checkbox" placeholder="✅"></input>
+
+        <BsFillCheckSquareFill color={checked? "#8FC549" : "#EBEBEB"} height="60px" width="60px" onClick={() => setcheked(!checked)} />
       </HabitContainer>
     </>
   );
@@ -31,16 +37,16 @@ const HabitContainer = styled.div`
     margin-bottom: 8px;
   }
   p {
-font-size: 13px;
+    font-size: 13px;
   }
   input {
     width: 50px;
     height: 50px;
     font-size: 25px;
     background-color: green;
-    &:hover{
-        cursor: pointer;
-        background-color: #ccc;
+    &:hover {
+      cursor: pointer;
+      background-color: #ccc;
     }
   }
 `;

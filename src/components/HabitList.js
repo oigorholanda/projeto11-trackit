@@ -30,7 +30,7 @@ export default function HabitList() {
         setHabits(res.data)
       })
       .catch((err) => {
-        console.log("Erro")
+        console.log(err.response.data.message)
         console.log(err.response)
       })
   }, []);
