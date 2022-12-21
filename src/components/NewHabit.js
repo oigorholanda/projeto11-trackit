@@ -6,7 +6,7 @@ import { ligthBlue } from "../constants/colors";
 import { base_url } from "../constants/urls";
 import AuthContext from "../contexts/AuthContext";
 
-export default function NewHabit({ plus, setPlus }) {
+export default function NewHabit({ plus, setPlus, setReload, reload }) {
   const [days, setDays] = useState([]);
   const [name, setName] = useState("");
   const [loading, setloading] = useState(false);
@@ -31,8 +31,7 @@ export default function NewHabit({ plus, setPlus }) {
     const body = {
       name, days
     };
-
-    console.log(body);
+  
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -40,8 +39,13 @@ export default function NewHabit({ plus, setPlus }) {
     };
     axios
       .post(`${base_url}/habits`, body, config)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err.response.data.message));
+      .then((res) => {
+        console.log(res.data)
+        setReload(!reload)
+        setloading(false)
+        setPlus(false)
+      })
+      .catch((err) => alert(err.response.data.message));
   }
 
   return (

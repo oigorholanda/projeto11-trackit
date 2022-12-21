@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { textColor } from "../constants/colors";
 import { useState } from "react";
-
-import {BsFillCheckSquareFill} from 'react-icons/bs'
+import {FiCheckSquare} from 'react-icons/fi'
 
 export default function Habit() {
     const [checked, setcheked] = useState(false)
@@ -16,7 +15,7 @@ export default function Habit() {
           <p>Seu recorde: 5 dias</p>
         </div>
 
-        <BsFillCheckSquareFill color={checked? "#8FC549" : "#EBEBEB"} height="60px" width="60px" onClick={() => setcheked(!checked)} />
+        <FiCheckSquare color={checked? "#8FC549" : "#EBEBEB"} size={58} onClick={() => setcheked(!checked)} />
       </HabitContainer>
     </>
   );

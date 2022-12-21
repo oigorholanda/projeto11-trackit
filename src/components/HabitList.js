@@ -8,36 +8,35 @@ import UserContext from "../contexts/UserContext";
 import Footer from "./Footer";
 import Header from "./Header";
 import NewHabit from "./NewHabit";
+import UserHabit from "./UserHabit";
 
 export default function HabitList() {
   const [plus, setPlus] = useState(false);
   const { user } = useContext(UserContext);
   const { token } = useContext(AuthContext);
   const [habits, setHabits] = useState([]);
+  const [reload, setReload] = useState(false);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
   useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     axios
       .get(`${base_url}/habits`, config)
       .then((res) => {
-        console.log("Chegaram os dados")
-        console.log(res.data)
-        setHabits(res.data)
+        console.log("Chegaram os dados");
+        console.log(res.data);
+        setHabits(res.data);
       })
       .catch((err) => {
-        console.log(err.response.data.message)
-        console.log(err.response)
-      })
-  }, []);
-
-  function newHabit() {
-    setPlus(true);
-  }
+        console.log(err.response.data.message);
+        console.log(err.response);
+      }); 
+  }, [reload]);
 
   return (
     <>
@@ -45,15 +44,18 @@ export default function HabitList() {
       <ContainerBody>
         <HabitsTitle>
           <h3>Meus Hábitos</h3>
-          <div onClick={newHabit}>+</div>
+          <div onClick={() => setPlus(true)}>+</div>
         </HabitsTitle>
 
-        {plus && <NewHabit plus={plus} setPlus={setPlus} />}
-        {/* map do Myhabits */}
-        <p>
-          {user.name ? `${user.name}, v` : "V"}ocê não tem nenhum hábito
-          cadastrado ainda. Adicione um hábito para começar a trackear!
-        </p>
+        {plus && <NewHabit plus={plus} setPlus={setPlus} setReload={setReload} reload={reload}/>}
+
+        {habits.length == 0 ? (
+          <p>
+            {user.name ? `${user.name}, v` : "V"}ocê não tem nenhum hábito
+            cadastrado ainda. Adicione um hábito para começar a trackear!
+          </p>
+        ) : ( habits.map((h) => <UserHabit key={h.id} id={h.id} title={h.name} days={h.days} setReload={setReload} reload={reload}/>))
+        }
       </ContainerBody>
 
       <Footer />
