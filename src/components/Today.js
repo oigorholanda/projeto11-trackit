@@ -1,12 +1,38 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { backgroundColor, darkBlue } from "../constants/colors";
+import { base_url } from "../constants/urls";
+import AuthContext from "../contexts/AuthContext";
 import Footer from "./Footer";
 import Habit from "./Habit";
 import Header from "./Header";
 
 export default function Today() {
   const [concluidos, setconcluidos] = useState(false);
+  const [habits, setHabits] = useState([]);
+  const { token } = useContext(AuthContext);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .get(`${base_url}/habits/today`, config)
+      .then((res) => {
+        console.log("Chegaram os dados");
+        console.log(res.data);
+        setHabits(res.data)
+      })
+      .catch((err) => {
+        console.log(`Houve um erro! ${err.response.data.message}`);
+        console.log(err.response);
+      }); 
+  }, [reload]);
 
   function concluir(){
     setconcluidos(true)
@@ -24,10 +50,8 @@ export default function Today() {
               : "100% dos hábitos concluidos"}
           </p>
         </HabitsTitle>
+      {habits.map((h) => <Habit key={h.id} name={h.name} props={h} reload={reload} setReload={setReload}/> )}
 
-        <Habit />
-        <Habit />
-        <Habit />
       </ContainerBody>
 
       <Footer />

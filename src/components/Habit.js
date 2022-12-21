@@ -1,21 +1,69 @@
 import styled from "styled-components";
 import { textColor } from "../constants/colors";
-import { useState } from "react";
-import {FiCheckSquare} from 'react-icons/fi'
+import { useContext, useState } from "react";
+import { FiCheckSquare } from "react-icons/fi";
+import AuthContext from "../contexts/AuthContext";
+import axios from "axios";
+import { base_url } from "../constants/urls";
 
-export default function Habit() {
-    const [checked, setcheked] = useState(false)
+export default function Habit({ name, props, reload, setReload }) {
+  const { token } = useContext(AuthContext);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  function done(id) {
+    axios
+      .post(`${base_url}/habits/${id}/check`, {}, config)
+      .then(() => {
+        console.log("Marcado como concluido");
+        setReload(!reload);
+      })
+      .catch((err) =>
+        console.log(`Houve um erro! ${err.response.data.message}`)
+      );
+  }
+
+  function remove(id) {
+    axios
+      .post(`${base_url}/habits/${id}/uncheck`, {}, config)
+      .then(() => {
+        console.log("Desmarcado como concluido");
+        setReload(!reload);
+      })
+      .catch((err) =>
+        console.log(`Houve um erro! ${err.response.data.message}`)
+      );
+  }
 
   return (
     <>
-      <HabitContainer>
+      <HabitContainer
+        high={
+          props.highestSequence !== 0 &&
+          props.currentSequence >= props.highestSequence
+            ? true
+            : false
+        }
+      >
         <div>
-          <h3>Ler 1 capítulo de livro</h3>
-          <p>Sequência atual: 3 dias</p>
-          <p>Seu recorde: 5 dias</p>
+          <h3>{name}</h3>
+          <p>
+            Sequência atual:<span> {props.currentSequence} dias</span>
+          </p>
+          <p>
+            Seu recorde:<span> {props.highestSequence} dias</span>
+          </p>
         </div>
 
-        <FiCheckSquare color={checked? "#8FC549" : "#EBEBEB"} size={58} onClick={() => setcheked(!checked)} />
+        <FiCheckSquare
+          color={props.done ? "#8FC549" : "#EBEBEB"}
+          size={58}
+          onClick={() => (props.done ? remove(props.id) : done(props.id))}
+        />
       </HabitContainer>
     </>
   );
@@ -38,14 +86,7 @@ const HabitContainer = styled.div`
   p {
     font-size: 13px;
   }
-  input {
-    width: 50px;
-    height: 50px;
-    font-size: 25px;
-    background-color: green;
-    &:hover {
-      cursor: pointer;
-      background-color: #ccc;
-    }
+  span {
+    color: ${(props) => props.high && "#8FC549"};
   }
 `;
