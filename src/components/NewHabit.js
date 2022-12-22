@@ -29,21 +29,23 @@ export default function NewHabit({ plus, setPlus, setReload, reload }) {
     setloading(true);
 
     const body = {
-      name, days
+      name,
+      days,
     };
-  
+
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
+
     axios
       .post(`${base_url}/habits`, body, config)
       .then((res) => {
-        console.log(res.data)
-        setReload(!reload)
-        setloading(false)
-        setPlus(false)
+        console.log(res.data);
+        setReload(!reload);
+        setloading(false);
+        setPlus(false);
       })
       .catch((err) => alert(err.response.data.message));
   }
@@ -61,25 +63,32 @@ export default function NewHabit({ plus, setPlus, setReload, reload }) {
       />
       <DivDias>
         <DayDiv
+          selected={days.includes(0) ? true : false}
+          onClick={() => selecDay(0)}
+          disabled={loading}
+        >
+          D
+        </DayDiv>
+        <DayDiv
           selected={days.includes(1) ? true : false}
           onClick={() => selecDay(1)}
           disabled={loading}
         >
-          D
+          S
         </DayDiv>
         <DayDiv
           selected={days.includes(2) ? true : false}
           onClick={() => selecDay(2)}
           disabled={loading}
         >
-          S
+          T
         </DayDiv>
         <DayDiv
           selected={days.includes(3) ? true : false}
           onClick={() => selecDay(3)}
           disabled={loading}
         >
-          T
+          Q
         </DayDiv>
         <DayDiv
           selected={days.includes(4) ? true : false}
@@ -93,18 +102,11 @@ export default function NewHabit({ plus, setPlus, setReload, reload }) {
           onClick={() => selecDay(5)}
           disabled={loading}
         >
-          Q
+          S
         </DayDiv>
         <DayDiv
           selected={days.includes(6) ? true : false}
           onClick={() => selecDay(6)}
-          disabled={loading}
-        >
-          S
-        </DayDiv>
-        <DayDiv
-          selected={days.includes(7) ? true : false}
-          onClick={() => selecDay(7)}
           disabled={loading}
         >
           S
@@ -124,7 +126,7 @@ export default function NewHabit({ plus, setPlus, setReload, reload }) {
               radius="9"
               color="white"
               ariaLabel="three-dots-loading"
-              wrapperStyle={{ marginTop:-12, marginLeft: 16}}
+              wrapperStyle={{ marginTop: -12, marginLeft: 16 }}
               wrapperClassName=""
               visible={true}
             />

@@ -74,7 +74,7 @@ export default function CreateLogin() {
         <input
           id="url"
           type="url"
-          placeholder="Foto"
+          placeholder="Foto (URL)"
           onChange={(e) => setFoto(e.target.value)}
           value={foto}
           disabled={loading}

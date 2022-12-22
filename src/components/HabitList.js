@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { backgroundColor, darkBlue, ligthBlue } from "../constants/colors";
+import {
+  backgroundColor,
+  darkBlue,
+  ligthBlue,
+  textColor,
+} from "../constants/colors";
 import { base_url } from "../constants/urls";
 import AuthContext from "../contexts/AuthContext";
 import UserContext from "../contexts/UserContext";
@@ -17,7 +22,6 @@ export default function HabitList() {
   const [habits, setHabits] = useState([]);
   const [reload, setReload] = useState(false);
 
-
   useEffect(() => {
     const config = {
       headers: {
@@ -28,14 +32,14 @@ export default function HabitList() {
     axios
       .get(`${base_url}/habits`, config)
       .then((res) => {
-        console.log("Chegaram os dados");
+        console.log("Habitos do Usuário");
         console.log(res.data);
         setHabits(res.data);
       })
       .catch((err) => {
         console.log(err.response.data.message);
         console.log(err.response);
-      }); 
+      });
   }, [reload]);
 
   return (
@@ -47,15 +51,32 @@ export default function HabitList() {
           <div onClick={() => setPlus(true)}>+</div>
         </HabitsTitle>
 
-        {plus && <NewHabit plus={plus} setPlus={setPlus} setReload={setReload} reload={reload}/>}
+        {plus && (
+          <NewHabit
+            plus={plus}
+            setPlus={setPlus}
+            setReload={setReload}
+            reload={reload}
+          />
+        )}
 
-        {habits.length == 0 ? (
+        {habits.length === 0 ? (
           <p>
             {user.name ? `${user.name}, v` : "V"}ocê não tem nenhum hábito
             cadastrado ainda. Adicione um hábito para começar a trackear!
           </p>
-        ) : ( habits.map((h) => <UserHabit key={h.id} id={h.id} title={h.name} days={h.days} setReload={setReload} reload={reload}/>))
-        }
+        ) : (
+          habits.map((h) => (
+            <UserHabit
+              key={h.id}
+              id={h.id}
+              title={h.name}
+              days={h.days}
+              setReload={setReload}
+              reload={reload}
+            />
+          ))
+        )}
       </ContainerBody>
 
       <Footer />
@@ -68,12 +89,13 @@ const ContainerBody = styled.div`
   min-height: 560px;
   margin: 70px auto;
   padding: 20px;
+  padding-bottom: 30px;
   background-color: ${backgroundColor};
   p {
     margin: 30px 0px;
     font-size: 17.976px;
     line-height: 22px;
-    color: #666666;
+    color: ${textColor};
   }
 `;
 

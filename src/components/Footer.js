@@ -2,30 +2,27 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ligthBlue } from "../constants/colors";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
-import 'react-circular-progressbar/dist/styles.css';
-import { useContext, useState } from "react";
-import PercentageContext from "../contexts/PercentageContext";
+import "react-circular-progressbar/dist/styles.css";
 
-export default function Footer() {
-  const {percentage} = useContext(PercentageContext)
-
+export default function Footer({ value }) {
   return (
     <ContainerFooter>
       <Link to="/habitos">Habitos</Link>
       <Circle to="/hoje">
-        <CircularProgressbar         
-        value={percentage}
-        text="Hoje"
-        background
-        backgroundPadding={6}
-        styles={buildStyles({
-          backgroundColor: `${ligthBlue}`,
-          textColor: "#fff",
-          textSize: "20px",
-          pathColor: "#fff",
-          trailColor: "transparent",
-          strokeLinecap: "round"
-        })} />
+        <CircularProgressbar
+          value={value ? value : 0}
+          text="Hoje"
+          background
+          backgroundPadding={6}
+          styles={buildStyles({
+            backgroundColor: `${ligthBlue}`,
+            textColor: "#fff",
+            textSize: "20px",
+            pathColor: "#fff",
+            trailColor: "transparent",
+            strokeLinecap: "round",
+          })}
+        />
       </Circle>
       <Link to="/historico">Histórico</Link>
     </ContainerFooter>
@@ -52,7 +49,5 @@ const Circle = styled(Link)`
   height: 91px;
   border-radius: 100px;
   color: white;
-  /* background-color: ${ligthBlue}; */
   margin-bottom: 50px;
-
 `;

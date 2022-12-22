@@ -6,28 +6,27 @@ import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
 import { base_url } from "../constants/urls";
 
-export default function UserHabit({id, title, days, setReload, reload}) {
-    const { token } = useContext(AuthContext)
+export default function UserHabit({ id, title, days, setReload, reload }) {
+  const { token } = useContext(AuthContext);
 
-    function deleteHabit (id) {
-        const config = {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          };
-      
-          axios
-            .delete(`${base_url}/habits/${id}`, config)
-            .then((res) => {
-              console.log("Habito Apagado");
-              setReload(!reload)
-            })
-            .catch((err) => {
-              console.log(`Houve um erro! ${err.response.data.message}`);
-              console.log(err.response);
-            });
+  function deleteHabit(id) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    }
+    axios
+      .delete(`${base_url}/habits/${id}`, config)
+      .then((res) => {
+        console.log("Habito Apagado");
+        setReload(!reload);
+      })
+      .catch((err) => {
+        console.log(`Houve um erro! ${err.response.data.message}`);
+        console.log(err.response);
+      });
+  }
   return (
     <>
       <HabitContainer>
@@ -36,28 +35,14 @@ export default function UserHabit({id, title, days, setReload, reload}) {
           <GoTrashcan size={17} onClick={() => deleteHabit(id)} />
         </HabitsTitle>
         <DivDias>
-            <DayDiv selected={days.includes(1) ? true : false} >
-            D
-            </DayDiv>
-            <DayDiv selected={days.includes(2) ? true : false} >
-            S
-            </DayDiv>
-            <DayDiv selected={days.includes(3) ? true : false} >
-            T
-            </DayDiv>
-            <DayDiv selected={days.includes(4) ? true : false} >
-            Q
-            </DayDiv>
-            <DayDiv selected={days.includes(5) ? true : false} >
-            Q
-            </DayDiv>
-            <DayDiv selected={days.includes(6) ? true : false} >
-            S
-            </DayDiv>
-            <DayDiv selected={days.includes(7) ? true : false} >
-            S
-            </DayDiv>
-      </DivDias>
+          <DayDiv selected={days.includes(0) ? true : false}>D</DayDiv>
+          <DayDiv selected={days.includes(1) ? true : false}>S</DayDiv>
+          <DayDiv selected={days.includes(2) ? true : false}>T</DayDiv>
+          <DayDiv selected={days.includes(3) ? true : false}>Q</DayDiv>
+          <DayDiv selected={days.includes(4) ? true : false}>Q</DayDiv>
+          <DayDiv selected={days.includes(5) ? true : false}>S</DayDiv>
+          <DayDiv selected={days.includes(6) ? true : false}>S</DayDiv>
+        </DivDias>
       </HabitContainer>
     </>
   );
@@ -82,7 +67,7 @@ const HabitsTitle = styled.div`
   justify-content: space-between;
   font-size: 20px;
   margin-bottom: 5px;
-`
+`;
 
 const DivDias = styled.div`
   width: 100%;

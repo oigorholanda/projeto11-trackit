@@ -1,22 +1,30 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { backgroundColor, darkBlue, textColor } from "../constants/colors";
-import AuthContext from "../contexts/AuthContext";
+import UserContext from "../contexts/UserContext";
 import Footer from "./Footer";
 import Header from "./Header";
 
 export default function Historic() {
+  const { user } = useContext(UserContext);
+  let pName = "";
 
+  if (user) {
+    pName = user.name.split(" ");
+  }
 
   return (
     <>
-      <Header/>
+      <Header />
       <ContainerBody>
-      <h1>Histórico</h1>
-      <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+        <h3>Histórico</h3>
+        <p>
+          Em breve você poderá ver o histórico dos seus hábitos aqui
+          {user.name ? `, ${pName[0]} =)` : " =)"}
+        </p>
       </ContainerBody>
-      
-      <Footer/>
+
+      <Footer />
     </>
   );
 }
@@ -26,9 +34,9 @@ const ContainerBody = styled.div`
   min-height: 560px;
   margin: 70px auto;
   padding: 20px;
-  
+
   background-color: ${backgroundColor};
-  h1 {
+  h3 {
     font-size: 23px;
     display: flex;
     align-items: flex-end;
@@ -37,6 +45,9 @@ const ContainerBody = styled.div`
     margin-bottom: 20px;
   }
   p {
+    margin: 30px 0px;
+    font-size: 17.976px;
+    line-height: 22px;
     color: ${textColor};
   }
 `;

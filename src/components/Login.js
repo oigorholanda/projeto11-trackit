@@ -14,8 +14,8 @@ export default function Login() {
   const [loading, setloading] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const {setUser} = useContext(UserContext)
-  const {setToken} = useContext(AuthContext)
+  const { setUser } = useContext(UserContext);
+  const { setToken } = useContext(AuthContext);
 
   function logar(event) {
     event.preventDefault();
@@ -29,14 +29,14 @@ export default function Login() {
         })
         .then((res) => {
           console.log(res.data);
-          setUser(res.data)
+          setUser(res.data);
           setToken(res.data.token);
           navigate("/hoje");
         })
         .catch((err) => {
           console.log(err.response);
-          alert(err.response.data.message)
-          setloading(false)
+          alert(err.response.data.message);
+          setloading(false);
         });
     }
   }
@@ -64,7 +64,7 @@ export default function Login() {
           required
         />
 
-        <button type="submit" disabled={loading} >
+        <button type="submit" disabled={loading}>
           {!loading ? (
             "Entrar"
           ) : (

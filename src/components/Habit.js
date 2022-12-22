@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { textColor } from "../constants/colors";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { FiCheckSquare } from "react-icons/fi";
 import AuthContext from "../contexts/AuthContext";
 import axios from "axios";
@@ -45,8 +45,8 @@ export default function Habit({ name, props, reload, setReload }) {
         high={
           props.highestSequence !== 0 &&
           props.currentSequence >= props.highestSequence
-            ? true
-            : false
+            ? 1
+            : 0
         }
       >
         <div>
