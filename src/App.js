@@ -36,4 +36,5 @@ export default App;
 
 const ContainerApp = styled.div`
   max-width: 375px;
+  margin: auto;
 `;
