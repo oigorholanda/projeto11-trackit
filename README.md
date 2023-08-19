@@ -1,6 +1,7 @@
 # Habit tracker for your daily life
 
-
+Create and follow your habbits trought the week
+Front-end developed with react
 
 ## Available Scripts
 
